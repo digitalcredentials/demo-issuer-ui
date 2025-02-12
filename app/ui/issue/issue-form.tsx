@@ -1,6 +1,6 @@
 'use client';
 
-import { CredentialTypes } from '@/app/lib/definitions';
+import { CredentialTypes, ExpirationChoices } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   LinkIcon,
@@ -16,7 +16,9 @@ import { Button } from '@/app/ui/button';
 import { issueCredential, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
-const expiryOptions = [
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+const expiryOptions : ExpirationChoices[] = [
   {id: 1, name: 'In One Minute'},
   {id: 2, name: 'In Thirty Minutes'},
   {id: 3, name: 'In One Day'}, 
@@ -188,7 +190,7 @@ export default function Form() {
                   className="text-white-600 h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 focus:ring-2"
                 />
                 <label
-                  htmlFor="lcw"
+                  htmlFor="delivery"
                   className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-white-600"
                 >
                   Issue to the Learner Credential Wallet. <WalletIcon className="h-4 w-4" />
@@ -213,8 +215,8 @@ export default function Form() {
             </div>
           </div>
           <div id="lcw-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.lcw &&
-              state.errors.lcw.map((error: string) => (
+            {state.errors?.delivery &&
+              state.errors.delivery.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
@@ -238,7 +240,15 @@ export default function Form() {
         <Button type="submit">Issue Credential</Button>
       </div>
     </form>
-    {state.signedVC?JSON.stringify(state.signedVC):''}
+    { state.signedVC &&
+    <div>
+        <CopyToClipboard text={JSON.stringify(state.signedVC,null,2)}>
+          <Button>Copy VC to clipboard</Button>
+        </CopyToClipboard>
+        </div>
+}
+    <pre>
+    {state.signedVC?JSON.stringify(state.signedVC,null,2):''}</pre>
     </div>
   );
 }
