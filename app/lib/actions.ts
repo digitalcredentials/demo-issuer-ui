@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { testVC } from './vc-templates/getVC';
+import { getVCFor } from './vc-templates/getVC';
 
 const FormSchema = z.object({
   recipientName: z.string().trim()
@@ -26,7 +26,8 @@ export type State = {
     expiry?: string[];
     delivery?: string[];
   };
-  message?: string | null;
+  message?: string | null,
+  signedVC?: any
 };
 
 export async function issueCredential(prevState: State, formData: FormData) {
@@ -38,8 +39,7 @@ export async function issueCredential(prevState: State, formData: FormData) {
     expiry: formData.get('expiry'),
     delivery: formData.get('delivery'),
   });
-console.log("validatedFields:")
-console.log(JSON.stringify(validatedFields))
+
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -49,8 +49,9 @@ console.log(JSON.stringify(validatedFields))
   }
 
   const { recipientName, credentialType, expiry, delivery, revocable } = validatedFields.data;
- 
-  const expiryDate = new Date().toISOString();
+  const vc = getVCFor(validatedFields.data)
+  console.log("the vc:")
+  console.log(vc)
 
   // Call the signing service
   try {
@@ -59,16 +60,13 @@ console.log(JSON.stringify(validatedFields))
 
     const response = await fetch("https://test-issuer.dcconsortium.org/instance/test/credentials/issue", {
       method: "POST",
-      body: JSON.stringify(testVC),
+      body: JSON.stringify(vc),
       headers: myHeaders,
     });
-
     const json = await response.json();
-
-    console.log("the signed VC:")
-    console.log(json)
-    return json
+    return {signedVC: json}
   } catch (error) {
+    console.log(error)
     return {
       message: 'Error: Failed to sign the VC.',
     };

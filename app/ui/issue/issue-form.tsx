@@ -31,10 +31,11 @@ const credentialTypes : CredentialTypes[] = [
 ]
 
 export default function Form() {
-  const initialState: State = { message: null, errors: {} };
+  const initialState: State = { message: null, errors: {}, signedVC: null };
   const [state, formAction] = useActionState(issueCredential, initialState);
 
   return (
+    <div>
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Credential Type */}
@@ -237,5 +238,7 @@ export default function Form() {
         <Button type="submit">Issue Credential</Button>
       </div>
     </form>
+    {state.signedVC?JSON.stringify(state.signedVC):''}
+    </div>
   );
 }
