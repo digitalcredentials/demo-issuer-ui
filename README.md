@@ -1,5 +1,15 @@
-## Next.js App Router Course - Final
+## Digital Credentials Consortium Verifiable Credential Lab
 
-This is the final template for the Next.js App Router Course. It contains the final code for the dashboard application.
+****IN-PROGRESS****
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+A laboratory in which you can issue credentials, view them, verify them, revoke them, and learn along the way.
+
+The issuance part uses the the Digital Credential Consortium issuing services, fronted by a simple NextJS React UI and a backend api endpoint that acts as a controller to:
+
+- verify the incoming data
+- populate a VC with a selected template
+- setup a VC-API exchange endpoint and return a deeplink and CHAPI query
+- verify the subsequent DIDAuth submission from a wallet (like the DCC Learner Credential Wallet)
+- sign the credential
+- return the credential
+

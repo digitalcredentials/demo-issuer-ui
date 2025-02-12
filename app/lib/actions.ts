@@ -1,132 +1,78 @@
 'use server';
 
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { signIn } from '@/auth';
-import { AuthError } from 'next-auth';
+import { testVC } from './vc-templates/getVC';
 
 const FormSchema = z.object({
-  id: z.string(),
-  customerId: z.string({
-    invalid_type_error: 'Please select a customer.',
+  recipientName: z.string().trim()
+    .min(1, { message: "You must enter a name." }),
+  credentialType: z.string({
+    invalid_type_error: 'Please select a credential type.',
   }),
-  amount: z.coerce
-    .number()
-    .gt(0, { message: 'Please enter an amount greater than $0.' }),
-  status: z.enum(['pending', 'paid'], {
-    invalid_type_error: 'Please select an invoice status.',
+  expiry: z.string({
+    invalid_type_error: 'Please select an expiration period.',
   }),
-  date: z.string(),
+  revocable: z.coerce.boolean(),
+  delivery: z.enum(['lcw', 'direct'], {
+    invalid_type_error: "Please choose how you'd like to receive the credential.",
+  }),
 });
-
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
-const UpdateInvoice = FormSchema.omit({ date: true, id: true });
 
 export type State = {
   errors?: {
-    customerId?: string[];
-    amount?: string[];
-    status?: string[];
+    recipientName?: string[];
+    credentialType?: string[];
+    revocable?: string[];
+    expiry?: string[];
+    delivery?: string[];
   };
   message?: string | null;
 };
 
-export async function createInvoice(prevState: State, formData: FormData) {
-  // Validate form fields using Zod
-  const validatedFields = CreateInvoice.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
-  });
+export async function issueCredential(prevState: State, formData: FormData) {
 
+  const validatedFields = FormSchema.safeParse({
+    recipientName: formData.get('recipientName'),
+    credentialType: formData.get('credentialType'),
+    revocable: formData.get('revocable'),
+    expiry: formData.get('expiry'),
+    delivery: formData.get('delivery'),
+  });
+console.log("validatedFields:")
+console.log(JSON.stringify(validatedFields))
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoice.',
+      message: "Missing Fields - complete them so we can issue away!",
     };
   }
 
-  // Prepare data for insertion into the database
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
-  const date = new Date().toISOString().split('T')[0];
+  const { recipientName, credentialType, expiry, delivery, revocable } = validatedFields.data;
+ 
+  const expiryDate = new Date().toISOString();
 
-  // Insert data into the database
+  // Call the signing service
   try {
-    await sql`
-      INSERT INTO invoices (customer_id, amount, status, date)
-      VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
-    `;
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const response = await fetch("https://test-issuer.dcconsortium.org/instance/test/credentials/issue", {
+      method: "POST",
+      body: JSON.stringify(testVC),
+      headers: myHeaders,
+    });
+
+    const json = await response.json();
+
+    console.log("the signed VC:")
+    console.log(json)
+    return json
   } catch (error) {
-    // If a database error occurs, return a more specific error.
     return {
-      message: 'Database Error: Failed to Create Invoice.',
+      message: 'Error: Failed to sign the VC.',
     };
   }
-
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
 }
 
-export async function updateInvoice(
-  id: string,
-  prevState: State,
-  formData: FormData,
-) {
-  const validatedFields = UpdateInvoice.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
-  });
 
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Invoice.',
-    };
-  }
-
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
-
-  try {
-    await sql`
-      UPDATE invoices
-      SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-      WHERE id = ${id}
-    `;
-  } catch (error) {
-    return { message: 'Database Error: Failed to Update Invoice.' };
-  }
-
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
-}
-
-export async function deleteInvoice(id: string) {
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
-  revalidatePath('/dashboard/invoices');
-}
-
-export async function authenticate(
-  prevState: string | undefined,
-  formData: FormData,
-) {
-  try {
-    await signIn('credentials', formData);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Invalid credentials.';
-        default:
-          return 'Something went wrong.';
-      }
-    }
-    throw error;
-  }
-}
