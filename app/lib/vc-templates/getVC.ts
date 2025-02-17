@@ -26,7 +26,7 @@ const addExpiry = (vc: any, expiry: number) => {
     default:
     // do nothing
   }
-  vc.expirationDate = expiryDate.toISOString();   //": "2025-01-09T16:23:24Z",
+  vc.expirationDate = expiryDate.toISOString();
 }
 
 const getVCFor = (data: any) => {
