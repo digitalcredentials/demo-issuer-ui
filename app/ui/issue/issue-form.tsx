@@ -33,7 +33,7 @@ const credentialTypes : CredentialTypes[] = [
 ]
 
 export default function Form() {
-  const initialState: State = { message: null, errors: {}, signedVC: null };
+  const initialState: State = { message: null, errors: {}, signedVC: null, deepLinks: null };
   const [state, formAction] = useActionState(issueCredential, initialState);
 
   return (
@@ -121,6 +121,7 @@ export default function Form() {
                 id="recipientName"
                 name="recipientName"
                 type="string"
+                defaultValue="ddddd"
                 placeholder="Enter the name of credential recipient"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="recipientName-error"
@@ -209,7 +210,7 @@ export default function Form() {
                   htmlFor="direct"
                   className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-white-600"
                 >
-                  Display it here in the playground <DocumentTextIcon className="h-4 w-4" />
+                  Display it here in the lab <DocumentTextIcon className="h-4 w-4" />
                 </label>
               </div>
             </div>
@@ -245,10 +246,18 @@ export default function Form() {
         <CopyToClipboard text={JSON.stringify(state.signedVC,null,2)}>
           <Button>Copy VC to clipboard</Button>
         </CopyToClipboard>
-        </div>
+       
+            <pre>{state.signedVC?JSON.stringify(state.signedVC,null,2):''}</pre>
+            </div>
 }
-    <pre>
-    {state.signedVC?JSON.stringify(state.signedVC,null,2):''}</pre>
+
+{ state.deepLinks &&
+    <div>
+    <a href={`${state.deepLinks[0].directDeepLink}`}>Add to Learner Credential Wallet</a>
+    <pre>{JSON.stringify(state.deepLinks,null,2)}</pre>
+    </div>
+}
+
     </div>
   );
 }

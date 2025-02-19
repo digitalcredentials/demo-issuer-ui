@@ -15,7 +15,7 @@ export default function Page() {
           <p
             className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
           >
-            <strong>Welcome to the Digital Credentials Issuer Services Lab.</strong> Here you can experiment with issuing Verifiable Credentials using our {' '}
+            <strong>Welcome to the Digital Credentials Consortium Services Lab.</strong> Here you can experiment with issuing Verifiable Credentials using our {' '}
             <a href="https://github.com/digitalcredentials/docs/blob/main/deployment-guide/DCCDeploymentGuide.md" className="text-blue-500">
               Issuing Services.
             </a>
