@@ -33,7 +33,7 @@ const credentialTypes : CredentialTypes[] = [
 ]
 
 export default function Form() {
-  const initialState: State = { message: null, errors: {}, signedVC: null, deepLinks: null };
+  const initialState: State = { message: null, errors: {}, signedVC: null, deepLink: null };
   const [state, formAction] = useActionState(issueCredential, initialState);
 
   return (
@@ -251,13 +251,13 @@ export default function Form() {
             </div>
 }
 
-{ state.deepLinks &&
+{ state.deepLink &&
     <div>
-    <a href={`${state.deepLinks[0].directDeepLink}`}>Add to Learner Credential Wallet</a>
-    <pre>{JSON.stringify(state.deepLinks,null,2)}</pre>
+      <a href={`${state.deepLink.collectionPageURL}`}>Go to Collection Page</a>
+    <a href={`${state.deepLink.directDeepLink}`}>Add to Learner Credential Wallet</a>
+    <pre>{JSON.stringify(state.deepLink,null,2)}</pre>
     </div>
 }
-
     </div>
   );
 }

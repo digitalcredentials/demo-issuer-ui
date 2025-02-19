@@ -21,7 +21,7 @@ const FormSchema = z.object({
 });
 
 const timeToLive = 604800000 // one week
-const tenant = 'test'
+const tenantName = 'test'
 
 export type State = {
   errors?: {
@@ -33,12 +33,12 @@ export type State = {
   };
   message?: string | null,
   signedVC?: any,
-  deepLinks?: any
+  deepLink?: any
 };
 
 async function issueToLCW(vc:object):Promise<any> {
   const dataToPost = {
-    "tenantName": 'test',
+    tenantName,
     "data": [
       {
         "retrievalId": "single",
@@ -47,8 +47,18 @@ async function issueToLCW(vc:object):Promise<any> {
       }
     ]
   }
+
+  //https://lcw.app/request.html?issuer=issuer.example.com&auth_type=bearer&challenge=50991c0d-e033-49c4-86aa-7f3620cf6937&vc_request_url=https://issuer.dcconsortium.org/exchange/e63007bc-6065-417c-8ae8-6b8fbc6a79df/50991c0d-e033-49c4-86aa-7f3620cf6937
     const result = await postData(`${exchangeHost}/exchange/setup`, dataToPost)
-     return {deepLinks: result}
+    const deepLink = result[0];
+    const splitOnSlash = deepLink.directDeepLink.split('/')
+    console.log(splitOnSlash)
+    const transactionId = splitOnSlash.pop()
+    const exchangeId = splitOnSlash.pop()
+    deepLink.collectionPageURL = `${exchangeHost}/tryit/collect?exchangeId=${exchangeId}&transactionId=${transactionId}`
+    console.log("the result:")
+    console.log(result)
+    return {deepLink}
       // the links could be emailed out. but show them here first.
 }
 
