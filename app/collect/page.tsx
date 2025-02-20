@@ -9,7 +9,7 @@ function DeepLinks() {
   const searchParams = useSearchParams()
   const exchangeId = searchParams.get('exchangeId')
   const transactionId = searchParams.get('transactionId')
-  const deepLink = `https://lcw.app/request.html?issuer=issuer.example.com&auth_type=bearer&challenge=50991c0d-e033-49c4-86aa-7f3620cf6937&vc_request_url=https://issuer.dcconsortium.org/exchange/${exchangeId}/${transactionId}`
+  const deepLink = `https://lcw.app/request.html?issuer=issuer.example.com&auth_type=bearer&challenge=${transactionId}&vc_request_url=https://issuer.dcconsortium.org/exchange/${exchangeId}/${transactionId}`
   
   return (
     <div>
