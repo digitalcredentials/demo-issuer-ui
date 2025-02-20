@@ -5,15 +5,20 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'
 import QRCode from "react-qr-code";
 
-export default function Page() {
-
+function DeepLinks() {
   const searchParams = useSearchParams()
- 
   const exchangeId = searchParams.get('exchangeId')
   const transactionId = searchParams.get('transactionId')
-
   const deepLink = `https://lcw.app/request.html?issuer=issuer.example.com&auth_type=bearer&challenge=50991c0d-e033-49c4-86aa-7f3620cf6937&vc_request_url=https://issuer.dcconsortium.org/exchange/${exchangeId}/${transactionId}`
   
+  return (
+    <div>
+      <a href={`${deepLink}`}>Add your credential to the Learner Credential Wallet</a>
+      <QRCode value={deepLink} />
+    </div>)
+}
+
+export default function Page() {
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -25,8 +30,7 @@ export default function Page() {
         <Suspense>
             Collect your credential!!!!!! Deep link and QR and mayber chapi will go here.
             <br/><br/>
-            <a href={`${deepLink}`}>Add your credential to the Learner Credential Wallet</a>
-            <QRCode value={deepLink} />
+            <DeepLinks/>
         </Suspense>
       </div>
     </main>
