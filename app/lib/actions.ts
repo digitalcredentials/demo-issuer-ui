@@ -68,7 +68,7 @@ async function issueToLCW(vc:object):Promise<any> {
     const transactionId = splitOnSlash.pop()
     const exchangeId = splitOnSlash.pop()
     deepLink.collectionPageURL = `${exchangeHost}/tryit/collect?exchangeId=${exchangeId}&transactionId=${transactionId}`
-    sendMail(`Your credential: ${deepLink.collectionPageURL}`, 'jc.chartrand@gmail.com')
+    sendMail(`<body><h2>Your credential: </h2> <a clicktracking="off" href="${deepLink.collectionPageURL}">Click here to add to Learner Credential Wallet.</a></body>`, 'jc.chartrand@gmail.com')
     return {deepLink}
       // the links could be emailed out. but show them here first.
 }
@@ -148,7 +148,7 @@ async function sendMail(message:string, recipient:string) {
         from: process.env.EMAIL_FROM,
         to: recipient,
         subject: "You've got a credential!",
-        text: message
+        html: message
       }
     await transporter.sendMail(messageParams)
   } catch (error) {
