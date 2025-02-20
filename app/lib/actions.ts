@@ -2,8 +2,21 @@
 
 import { z } from 'zod';
 import { getVCFor } from './vc-templates/getVC';
+import nodemailer from 'nodemailer'
 
+const host = process.env.SMTP_HOST
+const user = process.env.SMTP_USER
+const pass = process.env.SMTP_PASS
+const port = process.env.SMTP_PORT
 const exchangeHost = process.env.EXCHANGE_HOST
+
+const smtpOptions : any = {
+    host,
+    auth: { user, pass },
+    ...(port && {port})
+} 
+
+const transporter = nodemailer.createTransport(smtpOptions)
 
 const FormSchema = z.object({
   recipientName: z.string().trim()
@@ -52,12 +65,10 @@ async function issueToLCW(vc:object):Promise<any> {
     const result = await postData(`${exchangeHost}/exchange/setup`, dataToPost)
     const deepLink = result[0];
     const splitOnSlash = deepLink.directDeepLink.split('/')
-    console.log(splitOnSlash)
     const transactionId = splitOnSlash.pop()
     const exchangeId = splitOnSlash.pop()
     deepLink.collectionPageURL = `${exchangeHost}/tryit/collect?exchangeId=${exchangeId}&transactionId=${transactionId}`
-    console.log("the result:")
-    console.log(result)
+    sendMail(`Your credential: ${deepLink.collectionPageURL}`, 'jc.chartrand@gmail.com')
     return {deepLink}
       // the links could be emailed out. but show them here first.
 }
@@ -96,8 +107,7 @@ export async function issueCredential(prevState: State, formData: FormData) {
 
   const { delivery, revocable } = validatedFields.data;
   const vc = getVCFor(validatedFields.data)
-  console.log("the vc:")
-  console.log(vc)
+
 
   // Call the signing service
   try {
@@ -131,5 +141,21 @@ async function postData(url = "", data = {}) {
   });
   return response.json();
 }
+
+async function sendMail(message:string, recipient:string) {
+  try {
+    const messageParams = {
+        from: process.env.EMAIL_FROM,
+        to: recipient,
+        subject: "You've got a credential!",
+        text: message
+      }
+    await transporter.sendMail(messageParams)
+  } catch (error) {
+    console.log('the email send error: ')
+    console.log(error)
+  }
+}
+
 
 
