@@ -3,7 +3,7 @@
 import AcmeLogo from '@/app/ui/dcc-logo';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'
-//import QRCode from "react-qr-code";
+import QRCode from "react-qr-code";
 
 export default function Page() {
 
@@ -25,7 +25,7 @@ export default function Page() {
         <Suspense>
             Collect your credential!!!!!! Deep link and QR and mayber chapi will go here.
             <a href={`${deepLink}`}>Add your credential to the Learner Credential Wallet</a>
-            
+            <QRCode value={deepLink} />
         </Suspense>
       </div>
     </main>
