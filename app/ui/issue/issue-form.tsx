@@ -34,12 +34,12 @@ const credentialTypes : CredentialTypes[] = [
 ]
 
 export default function Form() {
-  const initialState: State = { message: null, errors: {}, signedVC: null, deepLink: null };
+  const initialState: State = { message: null, errors: {}, signedVC: null, deepLink: null, data: {recipientName: 'jc', email: 'chartraj@mit.edu', credentialType: "1", expiry: "3", delivery: 'lcw'} };
   const [state, formAction] = useActionState(issueCredential, initialState);
 
   return (
     <div>
-    <form action={formAction}>
+    <form action={formAction} id="blah">
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Credential Type */}
         <div className="mb-4">
@@ -51,7 +51,7 @@ export default function Form() {
               id="credentialType"
               name="credentialType"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue="1"
+              defaultValue={state.data.credentialType}
               aria-describedby="credentialType-error"
             >
               <option value="" disabled>
@@ -86,7 +86,7 @@ export default function Form() {
               id="expiry"
               name="expiry"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue="2"
+              defaultValue={state.data.expiry}
               aria-describedby="expiry-error"
             >
               <option value="" disabled>
@@ -122,7 +122,7 @@ export default function Form() {
                 id="recipientName"
                 name="recipientName"
                 type="string"
-                defaultValue="ddddd"
+                defaultValue={state.data.recipientName}
                 placeholder="Enter the name of credential recipient"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="recipientName-error"
@@ -153,7 +153,7 @@ export default function Form() {
                 id="email"
                 name="email"
                 type="email"
-                defaultValue="jc.chartrand@gmail.com"
+                defaultValue={state.data.email}
                 placeholder="Email address to send credential to"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="email-error"
@@ -171,41 +171,6 @@ export default function Form() {
               ))}
           </div>
         </div>
-        
-        {/* Revokable */}
-        <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
-            Make it revocable?
-          </legend>
-          <div className="rounded-md border mb-4 border-gray-200 bg-white px-[14px] py-3">
-            <div className="flex gap-4">
-              <div className="flex items-center">
-                <input
-                  id="revocable"
-                  name="revocable"
-                  type="checkbox"
-                  className="text-white-600 h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 focus:ring-2"
-                />
-                <label
-                  htmlFor="revocable"
-                  className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-white-600"
-                >
-                  Revocable <LinkSlashIcon className="h-4 w-4" />
-                </label>
-              </div>
-              
-            </div>
-          </div>
-          <div id="revocable-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.revocable &&
-              state.errors.revocable.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </fieldset>
-
 
         {/* LCW vs direct */}
         <fieldset>
@@ -221,6 +186,7 @@ export default function Form() {
                   type="radio"
                   value="lcw" 
                   className="text-white-600 h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 focus:ring-2"
+                  defaultChecked = {state.data.delivery === "lcw"}
                 />
                 <label
                   htmlFor="delivery"
@@ -235,7 +201,7 @@ export default function Form() {
                   name="delivery"
                   type="radio"
                   value="direct"
-                  defaultChecked
+                  defaultChecked = {state.data.delivery === "direct"}
                   className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                 />
                 <label
@@ -282,14 +248,31 @@ export default function Form() {
         </CopyToClipboard>
        
             <pre>{state.signedVC?JSON.stringify(state.signedVC,null,2):''}</pre>
-            </div>
-}
+    </div>
+    }
 
 { state.deepLink &&
     <div>
-      <a href={`${state.deepLink.collectionPageURL}`}>Go to Collection Page</a><br/><br/>
-    <a href={`${state.deepLink.directDeepLink}`}>Add to Learner Credential Wallet</a><br/><br/>
-    <pre>{JSON.stringify(state.deepLink,null,2)}</pre>
+       <br/> <br/>
+      Lovely - your credential has been issued! <br/> <br/> You should momentarily receive an email with a link to collect the credential.
+<br/>
+You can also go directly to the same claim page if you like:
+
+      <div className="mt-6 flex justify-start gap-4">
+      <Link href={`${state.deepLink.collectionPageURL}`} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">Go to Claim Page</Link><br/><br/>
+      </div>
+
+    <br/> <br/>
+
+    Or if you like, and you are on your phone already you can directly add the credential to your wallet:
+    <br/><br/>
+
+
+   <div className="mt-6 flex justify-start gap-4">
+      <Link href={`${state.deepLink.directDeepLink}`} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">Add to Learner Credential Wallet</Link><br/><br/>
+      </div>
+
+
     </div>
 }
     </div>

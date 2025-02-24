@@ -48,7 +48,14 @@ export type State = {
   };
   message?: string | null,
   signedVC?: any,
-  deepLink?: any
+  deepLink?: any,
+  data: {
+    recipientName?: string,
+    email?: string,
+    expiry?: string,
+    delivery?: string,
+    credentialType?: string
+  }
 };
 
 async function issueToLCW(vc:object, email:string):Promise<any> {
@@ -91,14 +98,16 @@ async function issueDirectly(vc:object):Promise<any> {
 
 export async function issueCredential(prevState: State, formData: FormData) {
 
-  const validatedFields = FormSchema.safeParse({
-    recipientName: formData.get('recipientName'),
-    credentialType: formData.get('credentialType'),
-    revocable: formData.get('revocable'),
-    expiry: formData.get('expiry'),
-    delivery: formData.get('delivery'),
-    email: formData.get('email')
-  });
+  const recipientName = formData.get('recipientName')
+  const credentialType = formData.get('credentialType')
+  //const revocable = formData.get('revocable'),
+  const expiry = formData.get('expiry')
+  const delivery = formData.get('delivery')
+  const email = formData.get('email')
+
+  const data = {delivery, recipientName, email, expiry, credentialType}
+
+  const validatedFields = FormSchema.safeParse(data);
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
@@ -108,28 +117,28 @@ export async function issueCredential(prevState: State, formData: FormData) {
     };
   }
 
-  const { delivery, revocable } = validatedFields.data;
   const vc = getVCFor(validatedFields.data)
 
-
+  let result;
   // Call the signing service
   try {
     if (delivery === 'lcw') {
-      return issueToLCW(vc, validatedFields.data.email)
+      result = await issueToLCW(vc, validatedFields.data.email)
     } else {
-      return issueDirectly(vc)
+      result = await issueDirectly(vc)
     }
-
   } catch (error) {
     console.log(error)
-    return {
+    result = {
       message: 'Error: Failed to issue.',
     };
   }
+const finalResult :any = {data, ...result};
+
+  return finalResult;
 }
 
 async function postData(url = "", data = {}) {
-
   const response = await fetch(url, {
     method: "POST",
     mode: "cors",
