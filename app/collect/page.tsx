@@ -13,7 +13,8 @@ function DeepLinks() {
   
   return (
     <div>
-      <a href={`${deepLink}`}>Add your credential to the Learner Credential Wallet</a>
+      <a href={`${deepLink}`}>If you are on your phone, then click here to your credential to the Learner Credential Wallet, or scan the QR:</a>
+      <br/><br/>
       <QRCode value={deepLink} />
     </div>)
 }
@@ -24,12 +25,12 @@ export default function Page() {
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
         <div className="flex h-20 w-full items-end rounded-lg bg-blue-500 p-3 md:h-36">
           <div className="w-32 text-white md:w-36">
-            <DCCLogo />
+            <DCCLogo/>
           </div>
         </div>
         <Suspense>
-            Collect your credential!!!!!! Deep link and QR and mayber chapi will go here.
-            <br/><br/>
+        <br/><br/>
+            Collect your credential!!!!!! <br/><br/>
             <DeepLinks/>
         </Suspense>
       </div>

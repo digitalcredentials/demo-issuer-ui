@@ -9,7 +9,8 @@ import {
   AcademicCapIcon,
   UserCircleIcon,
   WalletIcon,
-  DocumentTextIcon
+  DocumentTextIcon,
+  InboxArrowDownIcon
 } from '@heroicons/react/24/outline';
 
 import { Button } from '@/app/ui/button';
@@ -140,6 +141,37 @@ export default function Form() {
           </div>
         </div>
 
+
+  {/* Email address to which to send the credential */}
+  <div className="mb-4">
+          <label htmlFor="email" className="mb-2 block text-sm font-medium">
+            Email Address
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                defaultValue="jc.chartrand@gmail.com"
+                placeholder="Email address to send credential to"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                aria-describedby="email-error"
+              />
+              <InboxArrowDownIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          </div>
+
+          <div id="email-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.email &&
+              state.errors.email.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+        
         {/* Revokable */}
         <fieldset>
           <legend className="mb-2 block text-sm font-medium">
@@ -225,6 +257,8 @@ export default function Form() {
           </div>
         </fieldset>
 
+  
+
         <div aria-live="polite" aria-atomic="true">
           {state.message ? (
             <p className="mt-2 text-sm text-red-500">{state.message}</p>
@@ -253,8 +287,8 @@ export default function Form() {
 
 { state.deepLink &&
     <div>
-      <a href={`${state.deepLink.collectionPageURL}`}>Go to Collection Page</a>
-    <a href={`${state.deepLink.directDeepLink}`}>Add to Learner Credential Wallet</a>
+      <a href={`${state.deepLink.collectionPageURL}`}>Go to Collection Page</a><br/><br/>
+    <a href={`${state.deepLink.directDeepLink}`}>Add to Learner Credential Wallet</a><br/><br/>
     <pre>{JSON.stringify(state.deepLink,null,2)}</pre>
     </div>
 }

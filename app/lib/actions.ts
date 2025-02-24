@@ -31,6 +31,7 @@ const FormSchema = z.object({
   delivery: z.enum(['lcw', 'direct'], {
     invalid_type_error: "Please choose how you'd like to receive the credential.",
   }),
+  email: z.string().email()
 });
 
 const timeToLive = 604800000 // one week
@@ -41,6 +42,7 @@ export type State = {
     recipientName?: string[];
     credentialType?: string[];
     revocable?: string[];
+    email?: string[];
     expiry?: string[];
     delivery?: string[];
   };
@@ -49,7 +51,7 @@ export type State = {
   deepLink?: any
 };
 
-async function issueToLCW(vc:object):Promise<any> {
+async function issueToLCW(vc:object, email:string):Promise<any> {
   const dataToPost = {
     tenantName,
     "data": [
@@ -68,7 +70,7 @@ async function issueToLCW(vc:object):Promise<any> {
     const transactionId = splitOnSlash.pop()
     const exchangeId = splitOnSlash.pop()
     deepLink.collectionPageURL = `${exchangeHost}/tryit/collect?exchangeId=${exchangeId}&transactionId=${transactionId}`
-    sendMail(`<body><h2>Your credential: </h2> <a clicktracking="off" href="${deepLink.collectionPageURL}">Click here to add to Learner Credential Wallet.</a></body>`, 'jc.chartrand@gmail.com')
+    sendMail(`<body><h2>Your credential: </h2> <a clicktracking="off" href="${deepLink.collectionPageURL}">Click here to add to Learner Credential Wallet.</a></body>`, email)
     return {deepLink}
       // the links could be emailed out. but show them here first.
 }
@@ -95,6 +97,7 @@ export async function issueCredential(prevState: State, formData: FormData) {
     revocable: formData.get('revocable'),
     expiry: formData.get('expiry'),
     delivery: formData.get('delivery'),
+    email: formData.get('email')
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -112,7 +115,7 @@ export async function issueCredential(prevState: State, formData: FormData) {
   // Call the signing service
   try {
     if (delivery === 'lcw') {
-      return issueToLCW(vc)
+      return issueToLCW(vc, validatedFields.data.email)
     } else {
       return issueDirectly(vc)
     }
