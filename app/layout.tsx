@@ -4,11 +4,11 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
+    template: '%s | DCC Verifiable Credentials Learning Lab',
+    default: 'DCC Verifiable Credentials Learning Lab',
   },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  description: 'A lab in which to learn about Verifiable Credentials',
+  metadataBase: new URL('https://digitalcredentials.mit.edu'),
 };
 export default function RootLayout({
   children,

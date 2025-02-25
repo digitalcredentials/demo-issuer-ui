@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
-import DCCLogo from '@/app/ui/dcc-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
+
+import { lusitana } from '@/app/ui/fonts';
+
+function DCCLogo() {
+  return (
+    <div
+      className={`${lusitana.className} flex flex-row items-center leading-none text-white`}
+    >
+      <p className="text-[28px] text-left ">DCC Verifiable Credentials Learning Lab</p>
+    </div>
+  );
+}
 
 export default function SideNav() {
   return (
@@ -10,7 +21,7 @@ export default function SideNav() {
         className="mb-2 flex h-20 items-end justify-start rounded-md bg-blue-600 p-4 md:h-40"
         href="/"
       >
-        <div className="w-32 text-white md:w-40">
+        <div className="w-28 text-white md:w-40">
           <DCCLogo />
         </div>
       </Link>
