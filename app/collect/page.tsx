@@ -1,9 +1,9 @@
 'use client'
 
-import DCCLogo from '@/app/ui/dcc-logo';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link';
+import Image from 'next/image';
 
 import QRCode from "react-qr-code";
 
@@ -32,11 +32,18 @@ export default function Page() {
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-10">
-        <div className="flex h-100 w-full items-end rounded-lg bg-blue-500 p-3 md:h-90">
-          <div className="w-100 text-white md:w-100 justify-center">
-            <DCCLogo/>
-          </div>
-        </div>
+
+        
+                      <Image
+                        src="/lcw-badge-image.png"
+                        width={400}
+                        height={400}
+                        alt="lcw badge image"
+                        className="block"
+                      />
+                    
+      
+      
         <Suspense>
         <br/><br/>
             You've earned a credential! <br/><br/>

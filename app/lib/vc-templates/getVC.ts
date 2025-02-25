@@ -1,5 +1,5 @@
 import { bachelorsVC } from "./bachelors"
-
+import { lcwExperienceBadge } from "./lcwExperienceBadge"
 const testVC = { "@context": ["https://www.w3.org/2018/credentials/v1"], "type": ["VerifiableCredential"], "credentialSubject": { "id": "did:key:z6MkhTNL7i2etLerDK8Acz5t528giE5KA4p75T6ka1E1D74r" }, "issuanceDate": "2024-10-04T13:38:11Z", "id": "urn:uuid:31eadc58-e125-43bc-9abc-113fd93f4c3f", "issuer": "did:key:z6MknNQD1WHLGGraFi6zcbGevuAgkVfdyCdtZnQTGWVVvR5Q" }
 
 const addExpiry = (vc: any, expiry: string) => {
@@ -44,4 +44,11 @@ const getVCFor = (data: any) => {
   return vc
 }
 
-export { testVC, getVCFor };
+const getLCWBadge = (data: any) => {
+  const vc = JSON.parse(JSON.stringify(lcwExperienceBadge))
+  vc.credentialSubject.name = data.recipientName
+  return vc
+}
+
+
+export { testVC, getVCFor, getLCWBadge };
