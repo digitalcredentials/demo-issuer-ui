@@ -1,4 +1,3 @@
-import DCCLogo from '@/app/ui/dcc-logo';
 import Form from '@/app/ui/issue/issue-form-lcw';
 import { Suspense } from 'react';
 import Image from 'next/image';

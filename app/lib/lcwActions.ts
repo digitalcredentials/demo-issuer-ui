@@ -10,6 +10,7 @@ const user = process.env.SMTP_USER
 const pass = process.env.SMTP_PASS
 const port = process.env.SMTP_PORT
 const exchangeHost = process.env.EXCHANGE_HOST
+const appHost = process.env.APP_HOST
 
 const smtpOptions : any = {
     host,
@@ -60,7 +61,7 @@ async function issueToLCW(vc:object, email:string, earnerName:string):Promise<an
     const splitOnSlash = deepLink.directDeepLink.split('/')
     const transactionId = splitOnSlash.pop()
     const exchangeId = splitOnSlash.pop()
-    deepLink.collectionPageURL = `${exchangeHost}/tryit/collect?exchangeId=${exchangeId}&transactionId=${transactionId}`
+    deepLink.collectionPageURL = `${appHost}/collect?exchangeId=${exchangeId}&transactionId=${transactionId}`
     const emailContent = getLCWExperienceEmail(deepLink.collectionPageURL, earnerName)
     sendMail(emailContent, email)
     return {deepLink}
