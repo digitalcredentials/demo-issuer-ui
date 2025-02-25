@@ -5,9 +5,11 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <div><h1 className="text-lg font-medium">Digital Credentials Consortium</h1>
+    <div>
+    <div className="text-center"><div className="text-3xl font-medium">Digital Credentials Consortium</div>
 
     LCW Experience Badge
+    </div>
     <main className="flex items-center justify-center md:h-screen">
      
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
