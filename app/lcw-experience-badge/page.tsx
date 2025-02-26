@@ -19,9 +19,9 @@ export default function Page() {
         <p className="max-w-[600px] text-lg font-medium">After entering your name and email address, you will be sent an email with instructions on how to claim your badge. </p>
        
       </div>
-      <div className="self-stretch max-w-[500px]">
+      <div className="min-w-[500px] mt-8">
           <Form />
-        </div>
+      </div>
     </main>
 
 
