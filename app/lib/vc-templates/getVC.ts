@@ -47,6 +47,7 @@ const getVCFor = (data: any) => {
 const getLCWBadge = (recipientName: string) => {
   const vc = JSON.parse(JSON.stringify(lcwExperienceBadge))
   vc.credentialSubject.name = recipientName
+  vc.validFrom = (new Date()).toISOString();
   return vc
 }
 
