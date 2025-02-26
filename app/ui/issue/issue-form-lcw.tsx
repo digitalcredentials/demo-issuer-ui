@@ -96,11 +96,16 @@ export default function Form() {
 
 
 { state.success &&
-    <div>
-       <br/> <br/>
-      Your credential has been issued! You should momentarily receive an email with a link to collect the credential.
+
+<div className=" max-w-[500px] space-y-2.5 p-4 md:-mt-10 text-center">
+<br/><br/>
+Your credential has been issued!. 
+<br/><br/>
+You should momentarily receive an email with a link to collect the credential.
     </div>
 }
-    </div>
+</div>
+
+    
   );
 }
