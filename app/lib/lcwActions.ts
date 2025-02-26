@@ -37,7 +37,7 @@ export type State = {
   message?: string | null,
   signedVC?: any,
   deepLink?: any,
-  data: {
+  data?: {
     recipientName?: string,
     email?: string
   }

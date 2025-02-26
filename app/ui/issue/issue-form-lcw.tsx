@@ -17,9 +17,9 @@ import { Button } from '@/app/ui/button';
 import { issueCredential, State } from '@/app/lib/lcwActions';
 import { useActionState } from 'react';
 
-
+// , data: {recipientName: 'jc', email: 'chartraj@mit.edu'}
 export default function Form() {
-  const initialState: State = { message: null, errors: {}, deepLink: null, data: {recipientName: 'jc', email: 'chartraj@mit.edu'} };
+  const initialState: State = { message: null, errors: {}, deepLink: null };
   const [state, formAction] = useActionState(issueCredential, initialState);
 
   return (
@@ -38,7 +38,7 @@ export default function Form() {
                 id="recipientName"
                 name="recipientName"
                 type="string"
-                defaultValue={state.data.recipientName}
+                defaultValue={state.data?.recipientName?state.data.recipientName:null}
                 placeholder="Enter the name of credential recipient"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="recipientName-error"
@@ -69,7 +69,7 @@ export default function Form() {
                 id="email"
                 name="email"
                 type="email"
-                defaultValue={state.data.email}
+                defaultValue={state.data?.email?state.data.email:null}
                 placeholder="Email address to send credential to"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="email-error"
@@ -97,7 +97,7 @@ export default function Form() {
           ) : null}
         </div>
       </div>
-      <div className="mt-6 flex justify-end gap-4">
+      <div className="mt-6 flex justify-center gap-4">
         <Button type="submit">Issue Credential</Button>
       </div>
     </form>
@@ -106,7 +106,7 @@ export default function Form() {
 { state.deepLink &&
     <div>
        <br/> <br/>
-      Lovely - your credential has been issued! <br/> <br/> You should momentarily receive an email with a link to collect the credential.
+      Your credential has been issued! <br/> <br/> You should momentarily receive an email with a link to collect the credential.
     </div>
 }
     </div>

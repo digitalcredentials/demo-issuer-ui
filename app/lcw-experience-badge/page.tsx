@@ -4,34 +4,31 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <div>
-    <div className="text-center"><div className="text-3xl font-medium">Digital Credentials Consortium</div>
-
-    LCW Experience Badge
-    </div>
-    <main className="flex items-center justify-center md:h-screen">
+   
+    
+    <main className="flex flex-col items-center justify-center md:h-screen w-full">
      
-      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
-      
-          <div className="w-300 md:w-300">
-        
+
+      <div className="mx-auto flex items-center max-w-screen-lg flex-col space-y-2.5 p-4">
+        <div className="text-3xl font-medium">Digital Credentials Consortium</div>
+        <div className="text-3xl font-medium">LCW Experience Badge</div>
+       
                       <Image
                         src="/lcw-badge-image.png"
-                        width={300}
-                        height={300}
+                        width={200}
+                        height={200}
                         alt="Screenshot of the dashboard project showing mobile version"
                         className="block"
                       />
 
-          </div>
-          <p className="text-lg font-medium">The LCW Experience Badge provides a hands-on way to experience the issuing of an Open Badges 3.0 badge in the Learner Credential Wallet. </p>
-                    
-                    <p className="text-lg font-medium">After entering your name and email address, you will be sent an email with instructions on how to claim your badge. </p>
+        
+        <div className="w-200 md:w-200 text-lg font-medium">The LCW Experience Badge provides a hands-on way to experience the issuing of an Open Badges 3.0 badge in the Learner Credential Wallet. </div>          
+        <p className="text-lg font-medium">After entering your name and email address, you will be sent an email with instructions on how to claim your badge. </p>
         <Suspense>
           <Form />
         </Suspense>
       </div>
     </main>
-    </div>
+
   );
 }
