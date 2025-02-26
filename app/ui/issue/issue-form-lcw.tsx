@@ -1,26 +1,18 @@
 'use client';
 
-import { CredentialTypes, ExpirationChoices } from '@/app/lib/definitions';
-import Link from 'next/link';
 import {
-  LinkIcon,
-  LinkSlashIcon,
-  ClockIcon,
-  AcademicCapIcon,
   UserCircleIcon,
-  WalletIcon,
-  DocumentTextIcon,
   InboxArrowDownIcon
 } from '@heroicons/react/24/outline';
 
 import { Button } from '@/app/ui/button';
-import { issueCredential, State } from '@/app/lib/lcwActions';
+import { sendEmail, State } from '@/app/lib/mailClaimPageAction';
 import { useActionState } from 'react';
 
-// , data: {recipientName: 'jc', email: 'chartraj@mit.edu'}
+// If want default data, put this in the intitialState:  data: {recipientName: 'jc', email: 'chartraj@mit.edu'}
 export default function Form() {
-  const initialState: State = { message: null, errors: {}, deepLink: null };
-  const [state, formAction] = useActionState(issueCredential, initialState);
+  const initialState: State = { message: null, errors: {} };
+  const [state, formAction] = useActionState(sendEmail, initialState);
 
   return (
     <div>
@@ -38,7 +30,7 @@ export default function Form() {
                 id="recipientName"
                 name="recipientName"
                 type="string"
-                defaultValue={state.data?.recipientName?state.data.recipientName:null}
+                defaultValue={state.data?.recipientName?state.data.recipientName:undefined}
                 placeholder="Recipient's name"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="recipientName-error"
@@ -69,7 +61,7 @@ export default function Form() {
                 id="email"
                 name="email"
                 type="email"
-                defaultValue={state.data?.email?state.data.email:null}
+                defaultValue={state.data?.email?state.data.email:undefined}
                 placeholder="Recipient's email address"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="email-error"

@@ -1,18 +1,15 @@
-'use client'
-
 import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation'
 import Link from 'next/link';
 import Image from 'next/image';
-
 import QRCode from "react-qr-code";
 
-function DeepLinks() {
-  const searchParams = useSearchParams()
-  const exchangeId = searchParams.get('exchangeId')
-  const transactionId = searchParams.get('transactionId')
-  const deepLink = `https://lcw.app/request.html?issuer=issuer.example.com&auth_type=bearer&challenge=${transactionId}&vc_request_url=https://issuer.dcconsortium.org/exchange/${exchangeId}/${transactionId}`
+import { getDeepLink } from '@/app/lib/deepLinkAction';
+
+async function DeepLinks({recipientName}: {recipientName : string}) {
   
+  //const deepLink = `https://lcw.app/request.html?issuer=issuer.example.com&auth_type=bearer&challenge=${transactionId}&vc_request_url=https://issuer.dcconsortium.org/exchange/${exchangeId}/${transactionId}`
+  const deepLink = await getDeepLink(recipientName)
+
   return (
     <div>
       If you are viewing this page on your phone then click here to add your credential to the Learner Credential Wallet:
@@ -28,12 +25,17 @@ function DeepLinks() {
     </div>)
 }
 
-export default function Page() {
+export default async function Page(props: {
+  searchParams?: Promise<{
+    recipientName?: string;
+  }>;
+}) {
+  const searchParams = await props.searchParams;
+  const recipientName = searchParams?.recipientName || '';
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-10">
-
-        
                       <Image
                         src="/lcw-badge-image.png"
                         width={400}
@@ -41,13 +43,10 @@ export default function Page() {
                         alt="lcw badge image"
                         className="block"
                       />
-                    
-      
-      
         <Suspense>
         <br/><br/>
             You've earned a credential! <br/><br/>
-            <DeepLinks/>
+            <DeepLinks recipientName={recipientName}/>
         </Suspense>
       </div>
     </main>

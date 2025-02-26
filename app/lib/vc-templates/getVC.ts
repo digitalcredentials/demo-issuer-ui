@@ -44,9 +44,9 @@ const getVCFor = (data: any) => {
   return vc
 }
 
-const getLCWBadge = (data: any) => {
+const getLCWBadge = (recipientName: string) => {
   const vc = JSON.parse(JSON.stringify(lcwExperienceBadge))
-  vc.credentialSubject.name = data.recipientName
+  vc.credentialSubject.name = recipientName
   return vc
 }
 
