@@ -95,7 +95,7 @@ export default function Form() {
     </form>
 
 
-{ state.deepLink &&
+{ state.success &&
     <div>
        <br/> <br/>
       Your credential has been issued! You should momentarily receive an email with a link to collect the credential.
