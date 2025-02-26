@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import QRCode from "react-qr-code";
+import TimeOut from '@/app/ui/collect/timeout';
 
 import { getDeepLink } from '@/app/lib/deepLinkAction';
 
@@ -12,6 +13,8 @@ async function DeepLinks({recipientName}: {recipientName : string}) {
 
   return (
     <div>
+              <br/><br/>
+              You've earned a credential!<br/><br/>
       If you are viewing this page on your phone then click here to add your credential to the Learner Credential Wallet:
       <div className="mt-6 flex justify-center gap-4">
       <Link href={`${deepLink}`} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">Add to LCW</Link><br/><br/>
@@ -30,6 +33,7 @@ export default async function Page(props: {
     recipientName?: string;
   }>;
 }) {
+ 
   const searchParams = await props.searchParams;
   const recipientName = searchParams?.recipientName || '';
 
@@ -43,12 +47,13 @@ export default async function Page(props: {
                         alt="lcw badge image"
                         className="block"
                       />
-        <Suspense>
-        <br/><br/>
-            You've earned a credential! <br/><br/>
+                    
+                     <Suspense>
+ <br/><br/>
             <DeepLinks recipientName={recipientName}/>
         </Suspense>
       </div>
+      <TimeOut/>
     </main>
   );
 }
