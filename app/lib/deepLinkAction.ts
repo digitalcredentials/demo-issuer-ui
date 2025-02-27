@@ -3,9 +3,10 @@
 import { getLCWBadge } from './vc-templates/getVC';
 
 const exchangeHost = process.env.EXCHANGE_HOST
+const tenantAuthToken = process.env.LCWEXP_TOKEN
 
 const timeToLive = 300000  // 5 minutes
-const tenantName = 'test'
+const tenantName = 'lcwexp'
 
 export async function getDeepLink(recipientName:string):Promise<any> {
 
@@ -36,6 +37,7 @@ async function postData(url = "", data = {}) {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${tenantAuthToken}`
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
