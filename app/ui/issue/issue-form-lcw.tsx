@@ -7,15 +7,19 @@ import {
 
 import { Button } from '@/app/ui/button';
 import { sendEmail, State } from '@/app/lib/mailClaimPageAction';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 
 // If want default data, put this in the intitialState:  data: {recipientName: 'jc', email: 'chartraj@mit.edu'}
 export default function Form() {
   const initialState: State = { message: null, errors: {} };
   const [state, formAction] = useActionState(sendEmail, initialState);
+  const [success, setSuccess] = useState(false)
 
   return (
     <div>
+
+{ !state.success &&
+
     <form action={formAction} id="blah">
       <div className="rounded-md bg-gray-50 p-2 md:p-6">
        
@@ -80,30 +84,34 @@ export default function Form() {
           </div>
         </div>
 
-       
-  
-
+      {/* Any returned messages, i.e., errors */}
         <div aria-live="polite" aria-atomic="true">
           {state.message ? (
             <p className="mt-2 text-sm text-red-500">{state.message}</p>
           ) : null}
         </div>
       </div>
+
+      {/* The submit button */}
       <div className="mt-2 md:mt-6 flex justify-center md:gap-4">
         <Button type="submit">Issue Credential</Button>
       </div>
     </form>
-
-
-{ state.success &&
-
-<div className=" max-w-[500px] space-y-2.5 p-4 md:-mt-10 text-center">
-<br/><br/>
-Your credential has been issued!. 
-<br/><br/>
-You should momentarily receive an email with a link to collect the credential.
-    </div>
 }
+
+    { state.success &&
+
+      <div className=" max-w-[500px] space-y-2.5 p-4 md:-mt-10 text-center">
+        <br/><br/>
+        Your credential has been issued!. 
+        <br/><br/>
+        You should momentarily receive an email with a link to collect the credential.
+        <br/><br/>
+        <div className="mt-2 md:mt-6 flex justify-center md:gap-4">
+          <Button onClick={()=>{state.success = false; setSuccess(!success)}}>Issue Another</Button>
+        </div>
+      </div>
+    }
 </div>
 
     
