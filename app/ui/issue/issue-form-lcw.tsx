@@ -17,14 +17,14 @@ export default function Form() {
   return (
     <div>
     <form action={formAction} id="blah">
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
+      <div className="rounded-md bg-gray-50 p-2 md:p-6">
        
   {/* Name to put on the credential */}
-        <div className="mb-4">
+        <div className="mb-1 md:mb-4">
           <label htmlFor="recipientName" className="mb-2 block text-sm font-medium">
             Name
           </label>
-          <div className="relative mt-2 rounded-md">
+          <div className="relative mt-1 md:mt-2 rounded-md">
             <div className="relative">
               <input
                 id="recipientName"
@@ -51,11 +51,11 @@ export default function Form() {
 
 
   {/* Email address to which to send the credential */}
-  <div className="mb-4">
+  <div className="mb-1 md:mb-4">
           <label htmlFor="email" className="mb-2 block text-sm font-medium">
             Email Address
           </label>
-          <div className="relative mt-2 rounded-md">
+          <div className="relative  mt-1 md:mt-2 rounded-md">
             <div className="relative">
               <input
                 id="email"
@@ -89,7 +89,7 @@ export default function Form() {
           ) : null}
         </div>
       </div>
-      <div className="mt-6 flex justify-center gap-4">
+      <div className="mt-2 md:mt-6 flex justify-center md:gap-4">
         <Button type="submit">Issue Credential</Button>
       </div>
     </form>
