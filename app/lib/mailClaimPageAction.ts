@@ -30,7 +30,7 @@ export type State = {
     email?: string[];
   };
   message?: string | null;
-  success?: boolean;
+  success?: boolean | null;
   data?: {
     recipientName?: string;
     email?: string;

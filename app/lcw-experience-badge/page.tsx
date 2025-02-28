@@ -15,8 +15,8 @@ export default function Page() {
                         alt="Screenshot of the dashboard project showing mobile version"
                         className="block md:m-50"
                       />
-        <div className="max-w-[600px] text-sm md:text-lg font-medium">The LCW Experience Badge provides a hands-on way to experience the issuing of an Open Badges 3.0 badge in the Learner Credential Wallet. </div>          
-        <p className="max-w-[600px] text-sm md:text-lg font-medium">After entering your name and email address, you will be sent an email with instructions on how to claim your badge. </p>
+        <div className="max-w-[600px] text-sm md:text-base font-medium">The LCW Experience Badge provides a hands-on way to experience the issuing of an Open Badges 3.0 badge in the Learner Credential Wallet. </div>          
+        <p className="max-w-[600px] text-sm md:text-base font-medium">After entering your name and email address, you will be sent an email with instructions on how to claim your badge. </p>
        
       </div>
       <div className="md:min-w-[500px] md:mt-4">
