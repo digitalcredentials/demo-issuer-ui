@@ -14,7 +14,7 @@ async function DeepLinks({ recipientName }: { recipientName: string }) {
   return (
     <div className="flex flex-col gap-3 m-10">
 
-      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+      <div className="max-w-[900px] text-left text-sm md:text-lg font-medium">
         {`${recipientName}, this is where you can claim your LCW Experience Badge. Here’s how it works:`}
       </div>
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
@@ -24,7 +24,7 @@ async function DeepLinks({ recipientName }: { recipientName: string }) {
         2. If you are viewing this page on your phone then click here to add your credential to the Learner Credential Wallet:<br />
       </div>
       <div className="m-5 flex justify-center gap-4">
-        <Link href={`${deepLink}`} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">Add to LCW</Link>
+        <Link href={`${deepLink}`} className="flex h-10 items-center rounded-lg bg-[#429EA6] px-4 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-200">Add to LCW</Link>
       </div>
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
       If you are viewing this page on a computer screen, scan this QR from your phone camera:
@@ -76,9 +76,8 @@ export default async function Page(props: {
           className="block md:m-50"
         />
       </div>
-      <div className="md:min-w-[500px] md:mt-4">
+      <div className="md:min-w-[500px]">
         <Suspense>
-          <br />
           <DeepLinks recipientName={recipientName} />
         </Suspense>
       </div>

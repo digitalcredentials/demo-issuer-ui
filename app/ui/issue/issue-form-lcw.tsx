@@ -94,7 +94,7 @@ export default function Form() {
 
       {/* The submit button */}
       <div className="mt-2 md:mt-6 flex justify-center md:gap-4">
-        <Button type="submit">Issue Credential</Button>
+        <Button className="bg-[#429EA6] hover:bg-gray-200 text-gray-900" type="submit">Issue Credential</Button>
       </div>
     </form>
 }
@@ -108,7 +108,7 @@ export default function Form() {
         You should momentarily receive an email with a link to collect the credential.
         <br/><br/>
         <div className="mt-2 md:mt-6 flex justify-center md:gap-4">
-          <Button onClick={()=>{state.success = false; setSuccess(!success)}}>Issue Another</Button>
+          <Button className="bg-[#429EA6] hover:bg-gray-200 text-gray-900" onClick={()=>{state.success = false; setSuccess(!success)}}>Issue Another</Button>
         </div>
       </div>
     }
