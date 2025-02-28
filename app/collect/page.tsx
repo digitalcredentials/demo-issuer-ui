@@ -14,31 +14,42 @@ async function DeepLinks({ recipientName }: { recipientName: string }) {
   return (
     <div className="flex flex-col gap-3">
 
-      <div className="max-w-[600px] text-left text-sm md:text-base font-medium">
-       {`${recipientName}, this is where you can claim your LCW Experience Badge. Here’s how it works:`}
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+        {`${recipientName}, this is where you can claim your LCW Experience Badge. Here’s how it works:`}
       </div>
-      <div className="max-w-[600px] text-left text-sm md:text-base font-medium">
-      1. Download and install the Learner Credential Wallet
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+        1. Download and install the Learner Credential Wallet
       </div>
-      <div className="max-w-[600px] text-left text-sm md:text-base font-medium">
-      2. If you are viewing this page on your phone then click here to add your credential to the Learner Credential Wallet:<br />
-    </div>
-      <div className="mt-6 flex justify-center gap-4">
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+        2. If you are viewing this page on your phone then click here to add your credential to the Learner Credential Wallet:<br />
+      </div>
+      <div className="m-5 flex justify-center gap-4">
         <Link href={`${deepLink}`} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">Add to LCW</Link>
       </div>
-      <div className="max-w-[600px] text-left text-sm md:text-base font-medium">
-      If you aren't on your phone, scan this QR from your phone camera:
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+      If you are viewing this page on a computer screen, scan this QR from your phone camera:
+
       </div>
-      <div className="mt-6 flex justify-center align-middle">
-        <QRCode value={deepLink} />
-      </div>
-      <div className="max-w-[600px] text-left text-sm md:text-base font-medium">
-        3. This will open the wallet app where you will see an offer to accept this badge.
-        (<i>In the background, the wallet told the issuing system the digital identity associated with your wallet. Then, the issuer added that identity to your badge data, digitallydigital signed it and sent it back where you were then given the choice so you could choose whether to accept or decline the badge.</i>)
+      <div className="mt-6 mb-5 flex justify-center align-middle">
+        <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
+          <QRCode
+            size={256}
+            style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+            value={deepLink}
+            viewBox={`0 0 256 256`}
+          />
         </div>
-        <div className="max-w-[600px] text-left text-sm md:text-base font-medium">
-          4. After you select done, you can return to the click on the page on your home page, and select click on the three dots in the top right corner to see how you can share this verifiable Open Badges 3.0 badge online.
-        
+      </div>
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+        3. This will open the wallet app where you will see an offer to accept this badge.
+        (<i>In the background, the wallet will tell the issuing system the digital identity associated with your wallet. Then, the issuer will add that identity to your badge data, digitally sign it and send it back to your wallet where you can choose to accept it.
+        </i>)
+      </div>
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+        4. Once you have accepted your badge, click on “Done” to return to the home screen where you will see your badge listed. 
+      </div>
+      <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
+      5. If you would like to share your badge on the web, click on your badge and look for three vertical dots in the top right corner. When you click on the dots, you will see the option to share. This will take you to a screen where you can choose to create a public url to share your badge with anyone and an option to post the badge on your LinkedIn profile. 
       </div>
     </div>)
 }
