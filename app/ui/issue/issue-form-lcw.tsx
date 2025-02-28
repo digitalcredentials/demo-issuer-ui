@@ -93,7 +93,7 @@ export default function Form() {
       </div>
 
       {/* The submit button */}
-      <div className="mt-2 md:mt-6 flex justify-center md:gap-4">
+      <div className="mt-4 md:mt-6 flex justify-center md:gap-4">
         <Button className="bg-[#429EA6] hover:bg-gray-200 text-gray-900" type="submit">Issue Credential</Button>
       </div>
     </form>

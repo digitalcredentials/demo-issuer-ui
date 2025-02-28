@@ -16,18 +16,19 @@ export default function Page() {
           alt="Screenshot of the dashboard project showing mobile version"
           className="block md:m-50"
         />
-        <div className="max-w-[600px] text-sm md:text-base font-medium">The Learner Credential Wallet (LCW) Experience Badge is an introduction to the experience of receiving, claiming, and storing of an Open Badges 3.0 badge to the Learner Credential Wallet. Please  <Link className="font-extrabold text-gray-800 transition-colors hover:bg-gray-200" href="#explainer">read below</Link> to learn more about how this works. </div>
-        <p className="max-w-[600px] text-sm md:text-base font-medium">Enter your name and email address below and you will instantly be sent an email with instructions on how to claim your badge. Please note that the DCC is not saving this information, only using it to generate and issue this badge to you.  </p>
+        <div className="max-w-[800px] text-sm md:text-base font-medium">The Learner Credential Wallet (LCW) Experience Badge is an introduction to the experience of receiving, claiming, and storing of an Open Badges 3.0 badge to the Learner Credential Wallet. Please  <Link className="font-extrabold text-gray-800 transition-colors hover:bg-gray-200" href="#explainer">read below</Link> to learn more about how this works. </div>
+        <p className="max-w-[800px] text-sm md:text-base font-medium">Enter your name and email address below and you will instantly be sent an email with instructions on how to claim your badge. Please note that the DCC is not saving this information, only using it to generate and issue this badge to you.  </p>
 
       </div>
       <div className="md:min-w-[500px] md:mt-4">
         <Form />
       </div>
 
-      <div className="max-w-[600px] text-base md:text-base font-bold mt-4 md:mt-10 mb-3 md:mb-4" id="explainer">
+      <div className="max-w-[800px] text-base md:text-base font-bold mt-8 md:mt-10 mb-1 md:mb-4" id="explainer">
         How does this work?
       </div>
-      <div className="max-w-[600px] text-sm md:text-base font:medium flex flex-col gap-3">
+
+      <div className="max-w-[800px] text-sm md:text-base font:medium flex flex-col gap-3 space-y-2.5 p-4">
 
         <p>
           The email notification you receive is similar to what a credentialing platform would send to an individual who has been awarded an Open Badges 3.0 digital credential. In this case the achievement type is a badge. At the time the badge is awarded, it does not exist yet. It is just information that is compiled into a structure that follows the Open Badges 3.0 standard.
