@@ -87,6 +87,7 @@ export default function Page() {
 
       </div>
       <div className="p-10">
+      <a href="https://digitalcredentials.mit.edu" target="_blank">
         <Image
           src="/DCC-logo.png"
           width={175}
@@ -94,6 +95,7 @@ export default function Page() {
           alt="DCC Logo"
           className="block md:m-50"
         />
+        </a>
       </div>
     </main>
 
