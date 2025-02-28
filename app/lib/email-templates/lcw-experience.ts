@@ -177,7 +177,7 @@ export const getLCWExperienceEmail = (claimPageLink:string, earnerName: string) 
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Your <a href="https://badging.dcconsortium.org/lcw-experience-badge" target="_blank">DCC Learner Credential Wallet Experience Badge</a> is ready for you to claim. This simple badge will demonstrate how an Open Badge 3.0 is digitally signed and issued on demand to a standards compatible wallet like the LCW.</p>
+              <p style="margin: 0;">Your DCC Learner Credential Wallet Experience Badge is ready for you to claim. This experience will demonstrate how an Open Badge 3.0 is digitally signed and issued on demand to a standards compatible wallet like the LCW.</p>
             </td>
           </tr>
           <tr>
