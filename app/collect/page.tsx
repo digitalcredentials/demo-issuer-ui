@@ -12,7 +12,7 @@ async function DeepLinks({ recipientName }: { recipientName: string }) {
   const deepLink = await getDeepLink(recipientName)
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 m-10">
 
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
         {`${recipientName}, this is where you can claim your LCW Experience Badge. Here’s how it works:`}
@@ -42,8 +42,8 @@ async function DeepLinks({ recipientName }: { recipientName: string }) {
       </div>
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
         3. This will open the wallet app where you will see an offer to accept this badge.
-        (<i>In the background, the wallet will tell the issuing system the digital identity associated with your wallet. Then, the issuer will add that identity to your badge data, digitally sign it and send it back to your wallet where you can choose to accept it.
-        </i>)
+        <div className="mx-6 mt-2 p-3 bg-slate-100 italic font-sans text-sm"> In the background, the wallet will tell the issuing system the digital identity associated with your wallet. Then, the issuer will add that identity to your badge data, digitally sign it and send it back to your wallet where you can choose to accept it.
+        </div>
       </div>
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
         4. Once you have accepted your badge, click on “Done” to return to the home screen where you will see your badge listed. 
