@@ -19,13 +19,13 @@ export default function Page() {
         <div className="max-w-[800px] text-sm md:text-base font-medium">The Learner Credential Wallet (LCW) Experience is an introduction to the experience of receiving, claiming, and storing of an Open Badges 3.0 badge to the Learner Credential Wallet. Please  <Link className="font-extrabold text-gray-800 transition-colors hover:bg-gray-200" href="#explainer">read below</Link> to learn more about how this works. </div>
        
 
-        <p className="max-w-[800px] text-sm md:text-base font-medium">Steps to earn this badge:
+        <p className="max-w-[800px] text-sm md:text-base font-medium">Steps to earn this badge:</p>
 
-        <ol>
-        <li>Install the <a href="https://lcw.app/" target="_blank">Learner Credential Wallet</a> and follow set-up instructions in the app.</li>
+        <ol className="list-disc ml-5 p-1">
+        <li>Install the <Link className="font-extrabold text-gray-800 transition-colors hover:bg-gray-200" href="https://lcw.app/" target="_blank">Learner Credential Wallet</Link> and follow set-up instructions in the app.</li>
         <li>Enter your name and email address in the fields below and click the "Award Badge" button.</li>
         </ol>
-        </p>
+        
 
         <p className="max-w-[800px] text-sm md:text-base font-medium">You will be sent an email with instructions on how to claim your badge.</p>
 
