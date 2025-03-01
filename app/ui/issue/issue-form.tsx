@@ -238,7 +238,7 @@ export default function Form() {
         >
           Clear
         </Link>
-        <Button type="submit">Issue Credential</Button>
+        <Button type="submit">Award Credential</Button>
       </div>
     </form>
     { state.signedVC &&
@@ -254,7 +254,7 @@ export default function Form() {
 { state.deepLink &&
     <div>
        <br/> <br/>
-      Lovely - your credential has been issued! <br/> <br/> You should momentarily receive an email with a link to collect the credential.
+      Lovely - your credential has been awarded! <br/> <br/> You should momentarily receive an email with a link to collect the credential.
 <br/>
 You can also go directly to the same claim page if you like:
 

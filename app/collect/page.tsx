@@ -18,7 +18,7 @@ async function DeepLinks({ recipientName }: { recipientName: string }) {
         {`${recipientName}, this is where you can claim your LCW Experience Badge. Here’s how it works:`}
       </div>
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
-        1. Download and install the Learner Credential Wallet
+        1. If you haven't installed the Learner Credential Wallet yet, <a href="https://lcw.app/" target="_blank">install on your mobile device</a>, follow set-up instructions in the app and return here for next steps.
       </div>
       <div className="max-w-[900px] text-left text-sm md:text-base font-medium">
         2. If you are viewing this page on your phone then click here to add your credential to the Learner Credential Wallet:<br />
