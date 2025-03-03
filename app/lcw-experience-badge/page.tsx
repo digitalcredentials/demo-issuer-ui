@@ -13,7 +13,7 @@ export default function Page() {
           src="/lcw-badge-image.png"
           width={220}
           height={220}
-          alt="Screenshot of the dashboard project showing mobile version"
+          alt="lcw badge logo"
           className="block md:m-50"
         />
         <div className="max-w-[800px] text-sm md:text-base font-medium">The Learner Credential Wallet (LCW) Experience is an introduction to the experience of receiving, claiming, and storing of an Open Badges 3.0 badge to the Learner Credential Wallet. Please  <Link className="font-extrabold text-gray-800 transition-colors hover:bg-gray-200" href="#explainer">read below</Link> to learn more about how this works. </div>
